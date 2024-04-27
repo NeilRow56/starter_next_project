@@ -20,34 +20,31 @@ const Hero = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="flex h-full w-full bg-background ">
-            <section className="flex  items-center justify-center bg-background">
-              <div className="relative mx-auto w-full max-w-7xl items-center px-5 md:px-12 lg:px-16 ">
-                <div className="mx-auto max-w-3xl text-center">
-                  <div className="pt-6 xl:pt-1">
-                    <span className="w-auto rounded-full bg-secondary px-2 py-3 sm:px-6">
-                      <span className="text-xs font-medium md:text-sm">
-                        A quicker way to prepare and review files .
-                      </span>
-                    </span>
-                    <h1 className="mt-8 text-3xl font-extrabold tracking-tight text-primary lg:text-6xl">
-                      Create working papers with ease
-                    </h1>
-                    <p className="mx-auto mt-8 max-w-xl text-base text-secondary-foreground lg:text-xl">
-                      Online accounts preparation file. Automatic comparative
-                      schedules. Secure cloud storage. Insert spreadsheet, pdf
-                      files etc;.
-                    </p>
-                  </div>
-                  <div className="mx-auto mt-10 flex max-w-sm justify-center">
-                    <Button asChild>
-                      <Link href="/auth/sign-up">Start for free</Link>
-                    </Button>
-                  </div>
-                </div>
+          <section className="flex  items-center justify-center bg-background">
+            <div className="mx-auto max-w-3xl text-center">
+              <div className="pt-6 xl:pt-1">
+                <span className="w-auto rounded-full bg-secondary px-2 py-3 sm:px-6">
+                  <span className="text-xs font-medium md:text-sm">
+                    A quicker way to prepare and review files .
+                  </span>
+                </span>
+                <h1 className="mt-8 text-3xl font-extrabold tracking-tight text-primary lg:text-6xl">
+                  Create working papers with ease
+                </h1>
+                <p className="mx-auto mt-8 max-w-xl text-base text-secondary-foreground lg:text-xl">
+                  Online accounts preparation file. Automatic comparative
+                  schedules. Secure cloud storage. Insert spreadsheet, pdf files
+                  etc;.
+                </p>
               </div>
-            </section>
-          </div>
+              <div className="mx-auto mt-10 flex max-w-sm justify-center">
+                <Button asChild>
+                  <Link href="/auth/sign-up">Start for free</Link>
+                </Button>
+              </div>
+            </div>
+          </section>
+
           <div className=" flex h-full w-full bg-background p-24 lg:p-8 lg:pl-24 ">
             <div className="w-full px-4 ">
               <div className="lg:ml-auto ">
