@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils'
 import { buttonVariants } from '../ui/button'
 
 const links = [
-  { name: 'Home', href: '/dashboard', icon: Home },
+  { name: 'Home', href: '/', icon: Home },
   {
     name: 'Search',
     href: '/dashboard/search',

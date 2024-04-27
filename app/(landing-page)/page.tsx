@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default async function LandingPage() {
   return (
-    <section className="flex h-[90vh] items-center justify-center bg-background">
+    <section className="flex  items-center justify-center bg-background">
       <Hero />
     </section>
   )

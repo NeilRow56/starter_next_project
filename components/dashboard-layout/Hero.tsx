@@ -10,13 +10,13 @@ const Hero = () => {
     <>
       <div className="flex w-full flex-col text-center">
         <div className=" flex h-[120px] w-full items-center bg-blue-100 md:h-[200px]">
-          <div className="container flex justify-between">
+          <div className="container flex justify-center sm:justify-between">
             <Button className="h-20 w-auto cursor-none rounded-full bg-secondary px-6 py-3 md:h-24">
               <span className="text-2xl font-bold text-blue-700 md:text-3xl  lg:text-5xl">
                 WpAccPac 💻
               </span>
             </Button>
-            <Computer className="h-24 w-24 " />
+            <Computer className="h-0 w-0 sm:h-24 sm:w-24" />
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -25,8 +25,8 @@ const Hero = () => {
               <div className="relative mx-auto w-full max-w-7xl items-center px-5 md:px-12 lg:px-16 ">
                 <div className="mx-auto max-w-3xl text-center">
                   <div className="pt-6 xl:pt-1">
-                    <span className="w-auto rounded-full bg-secondary px-6 py-3">
-                      <span className="text-sm font-medium ">
+                    <span className="w-auto rounded-full bg-secondary px-2 py-3 sm:px-6">
+                      <span className="text-xs font-medium md:text-sm">
                         A quicker way to prepare and review files .
                       </span>
                     </span>
