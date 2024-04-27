@@ -1,7 +1,11 @@
-export default function Home() {
+import Hero from '@/components/dashboard-layout/Hero'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+
+export default async function LandingPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Home Page</h1>
-    </main>
+    <section className="flex h-[90vh] items-center justify-center bg-background">
+      <Hero />
+    </section>
   )
 }
