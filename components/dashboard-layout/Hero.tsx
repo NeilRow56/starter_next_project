@@ -20,15 +20,15 @@ const Hero = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <section className="flex  items-center justify-center bg-background">
-            <div className="mx-auto max-w-3xl text-center">
+          <section className="flex  items-center justify-center bg-background px-2">
+            <div className="mx-auto max-w-[800px] text-center">
               <div className="pt-6 xl:pt-1">
                 <span className="w-auto rounded-full bg-secondary px-2 py-3 sm:px-6">
                   <span className="text-xs font-medium md:text-sm">
                     A quicker way to prepare and review files .
                   </span>
                 </span>
-                <h1 className="mt-8 text-3xl font-extrabold tracking-tight text-primary lg:text-6xl">
+                <h1 className="mt-8 text-3xl font-extrabold tracking-tight text-primary lg:text-5xl xl:text-7xl">
                   Create working papers with ease
                 </h1>
                 <p className="mx-auto mt-8 max-w-xl text-base text-secondary-foreground lg:text-xl">
