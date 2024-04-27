@@ -24,6 +24,7 @@ import { Switch } from '../ui/switch'
 import { useState, useRef, useEffect } from 'react'
 
 import { useTheme } from 'next-themes'
+import Link from 'next/link'
 
 function MoreDropdown() {
   const [showModeToggle, setShowModeToggle] = useState(false)
@@ -75,6 +76,7 @@ function MoreDropdown() {
             <DropdownMenuItem className="menuItem">
               <Settings size={20} />
               <p>Settings</p>
+              <Link href="/dashboard/settings">Settings</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="menuItem">
               <Activity size={20} />

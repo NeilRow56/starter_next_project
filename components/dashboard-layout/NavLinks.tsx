@@ -2,6 +2,7 @@
 
 import {
   Clapperboard,
+  Cog,
   Compass,
   Heart,
   Home,
@@ -44,6 +45,11 @@ const links = [
     name: 'Create',
     href: '/dashboard/create',
     icon: PlusSquare,
+  },
+  {
+    name: 'Settings',
+    href: '/dashboard/settings',
+    icon: Cog,
   },
 ]
 
