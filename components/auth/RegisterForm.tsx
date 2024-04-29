@@ -22,6 +22,7 @@ import { CardWrapper } from './CardWrapper'
 import { RegisterSchema } from '@/schemas/auth'
 import { Globe, Loader2, LogIn, MailIcon } from 'lucide-react'
 import { PasswordInput } from './PasswordInput'
+import { register } from '@/actions/auth-actions/register'
 
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()
@@ -38,7 +39,21 @@ export const RegisterForm = () => {
   })
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    console.log(values)
+    startTransition(() => {
+      register(values)
+        .then((data) => {
+          if (data?.error) {
+            form.reset()
+            toast.error(data.error)
+          }
+
+          if (data?.success) {
+            form.reset()
+            toast.success(data.success)
+          }
+        })
+        .catch(() => toast.error('Something went wrong'))
+    })
   }
 
   return (
