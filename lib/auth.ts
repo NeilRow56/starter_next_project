@@ -1,7 +1,14 @@
-import { AuthOptions } from 'next-auth'
+import { AuthOptions, getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcryptjs from 'bcryptjs'
 import db from './db'
+import { User } from '@prisma/client'
+
+import {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from 'next'
 
 export const authOptions: AuthOptions = {
   pages: {
@@ -47,4 +54,34 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+
+  session: {
+    strategy: 'jwt',
+  },
+
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.user = user as User
+      return token
+    },
+
+    async session({ token, session }) {
+      session.user = token.user
+      return session
+    },
+  },
+}
+
+// Use it in server contexts
+export function auth(
+  ...args:
+    | [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return getServerSession(...args, authOptions)
 }
