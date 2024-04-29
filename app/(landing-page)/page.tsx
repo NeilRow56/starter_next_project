@@ -1,6 +1,4 @@
-import Hero from '@/components/dashboard-layout/Hero'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+import Hero from '@/components/Hero'
 
 export default async function LandingPage() {
   return (

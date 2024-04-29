@@ -96,8 +96,13 @@ function MoreDropdown() {
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-gray-200" />
             <DropdownMenuItem className="menuItem" onClick={() => {}}>
-              <LogOut size={20} />
-              <p>Log out</p>
+              <Link
+                className="flex items-center gap-2 text-lg text-sky-500 transition-colors hover:text-sky-600"
+                href={'/api/auth/signout'}
+              >
+                <LogOut size={20} />
+                Sign Out
+              </Link>
             </DropdownMenuItem>
           </>
         )}

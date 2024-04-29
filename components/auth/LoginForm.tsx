@@ -35,7 +35,7 @@ export const LoginForm = () => {
     <CardWrapper
       headerLabel="Welcome back"
       backButtonLabel="Don't have an account?"
-      backButtonHref="/auth/register"
+      backButtonHref="/auth/sign-up"
     >
       <Form {...form}>
         <form className=" space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
@@ -45,12 +45,15 @@ export const LoginForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="flex w-full">Email</FormLabel>
+                  <FormLabel htmlFor="email" className="flex w-full">
+                    Email
+                  </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       placeholder="john.doe@example.com"
                       type="email"
+                      id="email"
                       suffix={<MailIcon />}
                     />
                   </FormControl>
@@ -63,7 +66,9 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="flex w-full">Password</FormLabel>
+                  <FormLabel htmlFor="password" className="flex w-full">
+                    Password
+                  </FormLabel>
                   <FormControl>
                     <PasswordInput {...field} placeholder="Password" />
                   </FormControl>
