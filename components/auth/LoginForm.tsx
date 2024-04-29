@@ -18,8 +18,18 @@ import { CardWrapper } from './CardWrapper'
 import { LoginSchema } from '@/schemas/auth'
 import { PasswordInput } from './PasswordInput'
 import { MailIcon } from 'lucide-react'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
+import { signIn } from 'next-auth/react'
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  callbackUrl?: string
+}
+
+export const LoginForm = ({ callbackUrl }: LoginFormProps) => {
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -28,9 +38,24 @@ export const LoginForm = () => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values)
+  const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
+    const result = await signIn('credentials', {
+      redirect: false,
+      username: data.email,
+      password: data.password,
+    })
+
+    if (!result?.ok) {
+      toast.error(result?.error)
+      return
+    }
+    startTransition(() => {
+      // router.push(callbackUrl ? callbackUrl : '/dashboard')
+      router.push('/dashboard')
+    })
+    toast.success('Welcome To WpAccPac')
   }
+
   return (
     <CardWrapper
       headerLabel="Welcome back"
@@ -54,6 +79,8 @@ export const LoginForm = () => {
                       placeholder="john.doe@example.com"
                       type="email"
                       id="email"
+                      name="email"
+                      disabled={isPending}
                       suffix={<MailIcon />}
                     />
                   </FormControl>
@@ -66,11 +93,13 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="password" className="flex w-full">
-                    Password
-                  </FormLabel>
+                  <FormLabel className="flex w-full">Password</FormLabel>
                   <FormControl>
-                    <PasswordInput {...field} placeholder="Password" />
+                    <PasswordInput
+                      {...field}
+                      placeholder="Password"
+                      disabled={isPending}
+                    />
                   </FormControl>
 
                   <FormMessage />

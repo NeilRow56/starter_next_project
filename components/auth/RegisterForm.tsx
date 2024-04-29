@@ -80,6 +80,7 @@ export const RegisterForm = () => {
                     <Input
                       {...field}
                       id="firstName"
+                      name="firstName"
                       placeholder="John "
                       disabled={isPending}
                     />
@@ -100,6 +101,7 @@ export const RegisterForm = () => {
                     <Input
                       {...field}
                       id="lastName"
+                      name="lastName"
                       placeholder="Doe"
                       disabled={isPending}
                     />
@@ -125,6 +127,7 @@ export const RegisterForm = () => {
                       disabled={isPending}
                       type="email"
                       id="email"
+                      name="email"
                       suffix={<MailIcon />}
                     />
                   </FormControl>

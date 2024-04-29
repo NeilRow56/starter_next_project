@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
 import { Computer } from 'lucide-react'
+import SigninButton from './auth/SigninButton'
 
 const Hero = () => {
   return (
@@ -38,9 +39,7 @@ const Hero = () => {
                 </p>
               </div>
               <div className="mx-auto mt-10 flex max-w-sm justify-center">
-                <Button asChild>
-                  <Link href="/auth/sign-up">Start for free</Link>
-                </Button>
+                <SigninButton />
               </div>
             </div>
           </section>

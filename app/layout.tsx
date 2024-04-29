@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import { ToastContainer } from 'react-toastify'
+import { AuthProvider } from '@/providers/AuthProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,26 +20,28 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${inter.className} ${'theme-orange'}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <ToastContainer
-            position="bottom-right"
-            autoClose={1000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <ToastContainer
+              position="bottom-right"
+              autoClose={1000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   )

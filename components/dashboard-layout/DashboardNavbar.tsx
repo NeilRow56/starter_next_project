@@ -1,10 +1,24 @@
+'use client'
+
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { ThemeToggle } from './ThemeToggle'
+import { useSession } from 'next-auth/react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { LogOut } from 'lucide-react'
 
 function DashboardNavbar() {
   // Holding userId ready for auth
-  const userId = 'Tommy'
+  const { data: session } = useSession()
+
+  const user = session?.user
 
   var myDate = new Date()
   var hrs = myDate.getHours()
@@ -24,14 +38,54 @@ function DashboardNavbar() {
       </div>
       <div className=" flex  gap-6">
         <ThemeToggle />
-        {userId ? (
-          <Button asChild size="sm" className="px-6  ">
-            <Link href="/sign-in">User</Link>
-          </Button>
+        {user ? (
+          <div className="flex w-full">
+            <div className=" space-x-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger className=" text-primary">
+                  <Avatar className="mt-2 h-12 w-12">
+                    <AvatarImage src="/profile.jpg" />
+                    <AvatarFallback>DR</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <h2>{user.email}</h2>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/dashboard">Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/edgestore">edgestore</Link>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem className="menuItem" onClick={() => {}}>
+                    <Link
+                      className="flex items-center gap-2 text-lg text-sky-500 transition-colors hover:text-sky-600"
+                      href={'/api/auth/signout'}
+                    >
+                      <LogOut size={20} />
+                      Sign Out
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <div className="pt-4">
+              <Button asChild size="sm" className="ml-4  px-6 ">
+                <Link href="/login">{user.firstName}-active</Link>
+              </Button>
+            </div>
+          </div>
         ) : (
-          <Button asChild size="sm" className="px-6  ">
-            <Link href="/sign-in">Login</Link>
-          </Button>
+          <div>
+            <Button asChild size="sm" className="px-6  ">
+              <Link href="/login">Login</Link>
+            </Button>
+          </div>
         )}
       </div>
     </div>
