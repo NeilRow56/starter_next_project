@@ -31,12 +31,12 @@ function DashboardNavbar() {
 
   return (
     <div className="flex h-14 w-full items-center border border-gray-600  bg-white  px-2 dark:bg-neutral-950 md:px-12  lg:px-48">
-      <div className="justify-cstart flex flex-1">
+      <div className="flex flex-1 justify-start">
         <div>
           <p className="text-xl text-primary">{greet}</p>
         </div>
       </div>
-      <div className=" flex  gap-6">
+      <div className=" flex items-center  gap-6">
         <ThemeToggle />
         {user ? (
           <div className="flex w-full">

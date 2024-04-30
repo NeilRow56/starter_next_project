@@ -13,7 +13,7 @@ const Hero = () => {
         <div className=" flex h-[120px] w-full items-center bg-blue-100 md:h-[200px]">
           <div className="container flex justify-center sm:justify-between">
             <Button className="h-20 w-auto cursor-none rounded-full bg-secondary px-6 py-3 md:h-24">
-              <span className="text-2xl font-bold text-blue-700 md:text-3xl  lg:text-5xl">
+              <span className="text-2xl font-bold text-secondary-foreground md:text-3xl  lg:text-5xl">
                 WpAccPac 💻
               </span>
             </Button>
