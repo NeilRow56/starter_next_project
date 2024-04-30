@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { LogOut } from 'lucide-react'
+import { LogOut, Search } from 'lucide-react'
 
 function DashboardNavbar() {
   // Holding userId ready for auth
@@ -30,13 +30,21 @@ function DashboardNavbar() {
   else if (hrs >= 17 && hrs <= 24) greet = 'Good Evening'
 
   return (
-    <div className="flex h-14 w-full items-center border border-gray-600  bg-white  px-2 dark:bg-neutral-950 md:px-12  lg:px-48">
-      <div className="flex flex-1 justify-start">
+    <div className="flex h-14 w-full items-center justify-between border border-gray-600  bg-white  px-2 dark:bg-neutral-950 md:px-12  lg:px-24">
+      <div className="flex  justify-start ">
         <div>
-          <p className="text-xl text-primary">{greet}</p>
+          <p className=" flex text-xl text-primary">{greet}</p>
         </div>
       </div>
-      <div className=" flex items-center  gap-6">
+      <div className="hidden items-center gap-x-2 rounded-md bg-zinc-100 px-3.5 py-1.5 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 md:flex">
+        <Search className="h-4 w-4" />
+        <input
+          type="text"
+          placeholder="Search"
+          className="bg-transparent outline-none placeholder:text-neutral-600 dark:placeholder:text-neutral-400 md:flex-1"
+        />
+      </div>
+      <div className=" flex items-center  gap-4">
         <ThemeToggle />
         {user ? (
           <div className="flex w-full">
