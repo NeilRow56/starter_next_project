@@ -11,9 +11,7 @@ function DashboardLayout({ children }: { children: ReactNode }) {
       </div>
       <div className="flex  w-full flex-col">
         <DashboardNavbar />
-        <div className="mx-auto mt-20 w-full max-w-7xl flex-1 flex-grow p-4 sm:p-6 md:mt-0 md:overflow-y-auto md:p-12">
-          {children}
-        </div>
+        <div className="w-full">{children}</div>
       </div>
     </div>
   )
