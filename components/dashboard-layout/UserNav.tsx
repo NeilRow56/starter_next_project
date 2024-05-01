@@ -15,9 +15,9 @@ import Link from 'next/link'
 
 export const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: BookDashed },
-  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
-  { name: 'Billing', href: '/dashboard/billing', icon: CreditCard },
-  { name: 'Users', href: '/dashboard/users', icon: CreditCard },
+  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Billing', href: '/billing', icon: CreditCard },
+  { name: 'Users', href: '/users', icon: CreditCard },
 ]
 
 export function UserNav({

@@ -1,4 +1,4 @@
-import DashboardNavbar from '@/components/dashboard-layout/DashboardNavbar'
+import Navbar from '@/components/dashboard-layout/Navbar'
 import { Sidebar } from '@/components/dashboard-layout/Sidebar'
 
 import React, { ReactNode } from 'react'
@@ -10,7 +10,7 @@ function DashboardLayout({ children }: { children: ReactNode }) {
         <Sidebar />
       </div>
       <div className="flex  w-full flex-col">
-        <DashboardNavbar />
+        <Navbar />
         <div className="w-full">{children}</div>
       </div>
     </div>

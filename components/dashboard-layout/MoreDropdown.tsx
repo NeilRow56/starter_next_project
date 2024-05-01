@@ -76,7 +76,7 @@ function MoreDropdown() {
             <DropdownMenuItem className="menuItem">
               <Settings size={20} />
               <p>Settings</p>
-              <Link href="/dashboard/settings">Settings</Link>
+              <Link href="/settings">Settings</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="menuItem">
               <Activity size={20} />

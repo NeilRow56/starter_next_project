@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  BookDashed,
   Clapperboard,
   Cog,
   Compass,
@@ -18,37 +19,38 @@ import { buttonVariants } from '../ui/button'
 
 const links = [
   { name: 'Home', href: '/', icon: Home },
+  { name: 'Dashboard', href: '/dashboard', icon: BookDashed },
   {
     name: 'Search',
-    href: '/dashboard/search',
+    href: '/search',
     icon: Search,
     hideOnMobile: true,
   },
-  { name: 'Explore', href: '/dashboard/explore', icon: Compass },
+  { name: 'Services', href: '/services', icon: Compass },
   {
     name: 'Reels',
-    href: '/dashboard/reels',
+    href: '/reels',
     icon: Clapperboard,
   },
   {
     name: 'Messages',
-    href: '/dashboard/messages',
+    href: '/messages',
     icon: MessageCircle,
   },
   {
     name: 'Notifications',
-    href: '/dashboard/notifications',
+    href: '/notifications',
     icon: Heart,
     hideOnMobile: true,
   },
   {
     name: 'Create',
-    href: '/dashboard/create',
+    href: '/create',
     icon: PlusSquare,
   },
   {
     name: 'Settings',
-    href: '/dashboard/settings',
+    href: '/settings',
     icon: Cog,
   },
 ]
