@@ -26,24 +26,26 @@ model User {
  password        String
  role            UserRole @default(USER)
  colorScheme     String        @default("theme-orange")
- Subscription    Subscription []
- Notes           Note[]
+ subscription    Subscription []
+
  createdAt       DateTime @default(now())
  updatedAt       DateTime @updatedAt
- posts         Post[]
-
+  userSettings    UserSettings[]
+ categories      Category[]
+transactions  Transaction[]
+monthHistory  MonthHistory[]
+yearHistory  YearHistory[]
  serviceId String? @db.ObjectId @unique
 service   Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
  specialityId String? @db.ObjectId @unique
 speciality   Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
- saved         SavedPost[]
- likes         Like[]
- comments      Comment[]
- followers     Follower[] 
+
+ 
+
  accounts      Account[]
  sessions      Session[]
  symptonIds    String []
- activateToken     ActivateToken[]
+ 
  
  
 
@@ -99,13 +101,10 @@ model Subscription {
   userId               String   @db.ObjectId
 }
 
-model Note {
+model UserSettings {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  currency       String
+  
 
   User   User?   @relation(fields: [userId], references: [id])
   userId String @db.ObjectId
@@ -113,32 +112,58 @@ model Note {
 
 
 
-model Post {
-    id          String @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime    @default(now())
-    updatedAt DateTime    @updatedAt
-    caption   String?
-    fileUrl   String      @unique
-    likes     Like[]
-    savedBy   SavedPost[]
-    comments  Comment[]
-    followers Follower[]
+model Transaction {
+    id            String @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
+    amount        Float
+    description   String  
+    date          DateTime        
+    type          String      @unique @default("income")
+    category      String
+    categoryIcon  String
     user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String @db.ObjectId
 
-    @@index([userId])
+    
 }
 
-model ActivateToken {
+model Category {
     id         String @id @default(auto()) @map("_id") @db.ObjectId
-    identifier String
-    token      String   @unique
-    activatedAt DateTime?
-    
+    name      String   @unique
+    icon      String   @unique
+    type      String   @unique @default("income")
+      
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    
     userId String @db.ObjectId
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+   
+    
+}
+
+model MonthHistory {
+    id            String @id @default(auto()) @map("_id") @db.ObjectId
+    day           Int
+    month         Int
+    year          Int
+    income        Float
+    expense       Float
+    user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String @db.ObjectId
+
+    
+}
+model YearHistory {
+    id            String @id @default(auto()) @map("_id") @db.ObjectId
+    month         Int
+    year          Int
+    income        Int
+    expense       Int
+    user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String @db.ObjectId
+
     
 }
 
@@ -167,56 +192,8 @@ model Account {
  @@unique([provider, providerAccountId])
 }
 
-model SavedPost {
-    id          String @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-    postId String @db.ObjectId
-    userId String @db.ObjectId
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([postId, userId])
-    @@index([userId])
-}
 
-model Like {
-    id          String @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-    postId String @db.ObjectId
-    userId String @db.ObjectId
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([postId, userId])
-    @@index([userId])
-}
-
-model Comment {
-    id          String @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    body      String
-    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-    postId String @db.ObjectId
-    userId String @db.ObjectId
-
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@index([postId])
-    @@index([userId])
-}
-
-model Follower {
-  id                 String @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  userId             String @db.ObjectId
-  postId             String @db.ObjectId
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-}
