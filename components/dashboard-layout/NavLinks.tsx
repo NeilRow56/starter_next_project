@@ -31,6 +31,7 @@ const links = [
     name: 'Reels',
     href: '/reels',
     icon: Clapperboard,
+    hideOnMobile: true,
   },
   {
     name: 'Messages',

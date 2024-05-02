@@ -14,6 +14,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { LogOut, Search } from 'lucide-react'
 import NavbarItem from './NavbarItem'
+import UserButton from './UserButton'
 
 function DashboardNavbar() {
   // Holding userId ready for auth
@@ -36,74 +37,21 @@ function DashboardNavbar() {
   ]
 
   return (
-    <div className=" hidden h-14 w-full items-center justify-between border border-gray-600 bg-white  px-2  dark:bg-neutral-950 md:flex md:px-12  lg:px-24">
-      <div className="flex  justify-start ">
-        <div className="relative flex items-center  ">
+    <div className=" hidden h-14 w-full items-center justify-between border border-gray-600 bg-white  px-2  dark:bg-neutral-950 md:px-6 lg:flex  ">
+      <div className="flex  justify-start lg:gap-12">
+        {/* <div className="relative flex items-center  ">
           <p className=" flex text-xl text-primary">{greet}</p>
-        </div>
+        </div> */}
         {items.map((item) => (
           <NavbarItem key={item.href} href={item.href} label={item.label} />
         ))}
       </div>
-      <div className="hidden items-center gap-x-2 rounded-md bg-zinc-100 px-3.5 py-1.5 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 md:flex">
-        <Search className="h-4 w-4" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="bg-transparent outline-none placeholder:text-neutral-600 dark:placeholder:text-neutral-400 md:flex-1"
-        />
-      </div>
-      <div className=" flex items-center  gap-4">
-        <ThemeToggle />
-        {user ? (
-          <div className="flex w-full">
-            <div className=" space-x-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger className=" text-primary">
-                  <Avatar className="mt-2 h-12 w-12">
-                    <AvatarImage src="/profile.jpg" />
-                    <AvatarFallback>DR</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <h2>{user.email}</h2>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/dashboard">Dashboard</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/edgestore">edgestore</Link>
-                  </DropdownMenuItem>
 
-                  <DropdownMenuItem className="menuItem" onClick={() => {}}>
-                    <Link
-                      className="flex items-center gap-2 text-lg text-sky-500 transition-colors hover:text-sky-600"
-                      href={'/api/auth/signout'}
-                    >
-                      <LogOut size={20} />
-                      Sign Out
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-            <div className="pt-4">
-              <Button asChild size="sm" className="ml-4  px-6 ">
-                <Link href="/login">{user.firstName}-active</Link>
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <Button asChild size="sm" className="px-6  ">
-              <Link href="/login">Login</Link>
-            </Button>
-          </div>
-        )}
+      <div className=" flex items-center justify-end lg:gap-4 ">
+        <ThemeToggle />
+
+        <p className=" flex w-full text-xl text-primary">{greet}</p>
+        <UserButton />
       </div>
     </div>
   )
