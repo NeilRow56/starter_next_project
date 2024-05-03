@@ -4,7 +4,7 @@ export default withAuth({
   callbacks: {
     authorized({ req, token }) {
       const isLoggedIn = !!token
-      const isOnDashboard = req.nextUrl.pathname.startsWith('/dashboard')
+      const isOnDashboard = req.nextUrl.pathname.startsWith('/front-end')
       if (isOnDashboard) {
         if (isLoggedIn) return true
         return false // Redirect unauthenticated users to login page

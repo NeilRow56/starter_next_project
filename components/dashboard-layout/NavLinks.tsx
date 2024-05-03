@@ -19,39 +19,39 @@ import { buttonVariants } from '../ui/button'
 
 const links = [
   { name: 'Home', href: '/', icon: Home },
-  { name: 'Dashboard', href: '/dashboard', icon: BookDashed },
+  { name: 'Dashboard', href: '/front-end/dashboard', icon: BookDashed },
   {
     name: 'Search',
-    href: '/search',
+    href: '/front-end/search',
     icon: Search,
     hideOnMobile: true,
   },
-  { name: 'Services', href: '/services', icon: Compass },
+  { name: 'Services', href: '/front-end/services', icon: Compass },
   {
     name: 'Reels',
-    href: '/reels',
+    href: '/front-end/reels',
     icon: Clapperboard,
     hideOnMobile: true,
   },
   {
     name: 'Messages',
-    href: '/messages',
+    href: '/front-end/messages',
     icon: MessageCircle,
   },
   {
     name: 'Notifications',
-    href: '/notifications',
+    href: '/front-end/notifications',
     icon: Heart,
     hideOnMobile: true,
   },
   {
     name: 'Create',
-    href: '/create',
+    href: '/front-end/create',
     icon: PlusSquare,
   },
   {
     name: 'Settings',
-    href: '/settings',
+    href: '/front-end/settings',
     icon: Cog,
   },
 ]

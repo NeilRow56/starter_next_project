@@ -22,8 +22,8 @@ function DashboardNavbar() {
   else if (hrs >= 17 && hrs <= 24) greet = 'Good Evening'
 
   const items = [
-    { label: 'Transactions', href: '/transactions' },
-    { label: 'Manage', href: '/manage' },
+    { label: 'Transactions', href: '/front-end/transactions' },
+    { label: 'Manage', href: '/front-end/manage' },
   ]
 
   return (

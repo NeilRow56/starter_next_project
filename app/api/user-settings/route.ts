@@ -27,6 +27,6 @@ export async function GET(request: Request) {
   }
 
   // Revalidate the home page that uses the user currency
-  revalidatePath('/dashboard')
+  revalidatePath('front-end//dashboard')
   return Response.json(userSettings)
 }

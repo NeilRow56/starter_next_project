@@ -75,8 +75,8 @@ function MoreDropdown() {
           <>
             <DropdownMenuItem className="menuItem">
               <Settings size={20} />
-              <p>Settings</p>
-              <Link href="/settings">Settings</Link>
+
+              <Link href="/front-end/settings">Settings</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="menuItem">
               <Activity size={20} />

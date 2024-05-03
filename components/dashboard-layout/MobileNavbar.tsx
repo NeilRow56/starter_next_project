@@ -21,8 +21,8 @@ import UserButton from './UserButton'
 
 export default function MobileNavbar() {
   const items = [
-    { label: 'Transactions', href: '/transactions' },
-    { label: 'Manage', href: '/manage' },
+    { label: 'Transactions', href: '/front-end-transactions' },
+    { label: 'Manage', href: '/front-end/manage' },
   ]
 
   const [isOpen, setIsOpen] = useState(false)

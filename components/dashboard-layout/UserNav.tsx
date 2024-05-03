@@ -14,10 +14,10 @@ import { BookDashed, CreditCard, LogOut, Settings, User2 } from 'lucide-react'
 import Link from 'next/link'
 
 export const navItems = [
-  { name: 'Dashboard', href: '/dashboard', icon: BookDashed },
-  { name: 'Settings', href: '/settings', icon: Settings },
-  { name: 'Billing', href: '/billing', icon: CreditCard },
-  { name: 'Users', href: '/users', icon: CreditCard },
+  { name: 'Dashboard', href: '/front-end/dashboard', icon: BookDashed },
+  { name: 'Settings', href: '/front-end/settings', icon: Settings },
+  { name: 'Billing', href: '/front-end/billing', icon: CreditCard },
+  { name: 'Users', href: '/front-end/users', icon: CreditCard },
 ]
 
 export function UserNav({

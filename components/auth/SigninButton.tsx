@@ -13,7 +13,7 @@ const SigninButton = () => {
         <>
           <p className="text-xl text-primary">
             <Link
-              href={'/profile'}
+              href={'/front-end/profile'}
             >{`${session.user.firstName} ${session.user.lastName}`}</Link>
           </p>
 

@@ -37,7 +37,7 @@ export default function UserButton() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link href="/dashboard">Dashboard</Link>
+                  <Link href="/front-end/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
@@ -65,7 +65,7 @@ export default function UserButton() {
       ) : (
         <div className="">
           <Button asChild size="sm" className="px-4  ">
-            <Link href="/login">Login</Link>
+            <Link href="/auth/sign-in">Login</Link>
           </Button>
         </div>
       )}

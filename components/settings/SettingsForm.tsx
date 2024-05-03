@@ -66,7 +66,7 @@ export const SettingsForm = ({ user }: { user: User }) => {
     <CardWrapper
       headerLabel="Enter details to update your account"
       backButtonLabel=""
-      backButtonHref="/dashboard/settings"
+      backButtonHref="/front-end/settings"
     >
       <Form {...form}>
         <form
