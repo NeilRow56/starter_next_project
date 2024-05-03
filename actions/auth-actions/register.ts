@@ -1,13 +1,11 @@
 'use server'
 
+import { getUserByEmail } from '@/app/data/user'
+import db from '@/lib/db'
+import { RegisterSchema } from '@/schemas/auth'
 import bcryptjs from 'bcryptjs'
 
 import * as z from 'zod'
-
-import { RegisterSchema } from '@/schemas/auth'
-
-import db from '@/lib/db'
-import { getUserByEmail } from '@/app/data/user'
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values)
@@ -25,7 +23,11 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const existingUser = await getUserByEmail(email)
 
   if (existingUser) {
-    return { error: 'Email already in use' }
+    return {
+      data: null,
+      error: 'This email is already in use',
+      status: 409,
+    }
   }
 
   await db.user.create({

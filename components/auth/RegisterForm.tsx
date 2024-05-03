@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { useTransition } from 'react'
-
+import { toast } from 'react-toastify'
 // import { passwordStrength } from 'check-password-strength'
 import { Input } from '@/components/ui/input'
 import {
@@ -16,17 +16,19 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 
-import { Button } from '../ui/button'
-import { toast } from 'react-toastify'
 import { CardWrapper } from './CardWrapper'
-import { RegisterSchema } from '@/schemas/auth'
-import { Globe, Loader2, LogIn, MailIcon } from 'lucide-react'
+
+import { Loader2, LogIn, MailIcon } from 'lucide-react'
 import { PasswordInput } from './PasswordInput'
+
+import { Button } from '@/components/ui/button'
 import { register } from '@/actions/auth-actions/register'
+import { useRouter } from 'next/navigation'
+import { RegisterSchema } from '@/schemas/auth'
 
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()
-
+  const router = useRouter()
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -49,6 +51,7 @@ export const RegisterForm = () => {
 
           if (data?.success) {
             form.reset()
+            router.push('/auth/sign-in')
             toast.success(data.success)
           }
         })
@@ -73,14 +76,10 @@ export const RegisterForm = () => {
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="firstName" className="flex w-full">
-                    First Name
-                  </FormLabel>
+                  <FormLabel className="flex w-full">First Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      id="firstName"
-                      name="firstName"
                       placeholder="John "
                       disabled={isPending}
                     />
@@ -94,17 +93,9 @@ export const RegisterForm = () => {
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="lastName" className="flex w-full">
-                    Last Name
-                  </FormLabel>
+                  <FormLabel className="flex w-full">Last Name</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      id="lastName"
-                      name="lastName"
-                      placeholder="Doe"
-                      disabled={isPending}
-                    />
+                    <Input {...field} placeholder="Doe" disabled={isPending} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,17 +108,13 @@ export const RegisterForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="email" className="flex w-full">
-                    Email
-                  </FormLabel>
+                  <FormLabel className="flex w-full">Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       placeholder="john.doe@example.com"
                       disabled={isPending}
                       type="email"
-                      id="email"
-                      name="email"
                       suffix={<MailIcon />}
                     />
                   </FormControl>
@@ -169,7 +156,6 @@ export const RegisterForm = () => {
                       placeholder="******"
                       type="password"
                       disabled={isPending}
-                      suffix={<Globe />}
                     />
                   </FormControl>
 
@@ -178,7 +164,7 @@ export const RegisterForm = () => {
               )}
             />
           </div>
-          <Button type="submit" className="max-w-[150px]">
+          <Button type="submit" className="max-w-[150px]" disabled={isPending}>
             {isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4" /> Processing
