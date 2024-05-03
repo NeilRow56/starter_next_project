@@ -1,18 +1,8 @@
 'use client'
 
-import { Button } from '../ui/button'
-import Link from 'next/link'
 import { ThemeToggle } from './ThemeToggle'
 import { useSession } from 'next-auth/react'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { LogOut, Search } from 'lucide-react'
+
 import NavbarItem from './NavbarItem'
 import UserButton from './UserButton'
 
