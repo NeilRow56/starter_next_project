@@ -17,7 +17,7 @@ import { Button } from '../ui/button'
 import { CardWrapper } from './CardWrapper'
 import { LoginSchema } from '@/schemas/auth'
 import { PasswordInput } from './PasswordInput'
-import { MailIcon } from 'lucide-react'
+import { Loader2, LogIn, MailIcon } from 'lucide-react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
@@ -106,8 +106,16 @@ export const LoginForm = ({ callbackUrl }: LoginFormProps) => {
               )}
             />
           </div>
-          <Button type="submit" className="w-full">
-            Login
+          <Button type="submit" className="max-w-[150px]" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4" /> Processing
+              </>
+            ) : (
+              <>
+                <LogIn className="mr-2 h-4 w-4" /> Login
+              </>
+            )}
           </Button>
         </form>
       </Form>
