@@ -50,8 +50,7 @@ export const LoginForm = ({ callbackUrl }: LoginFormProps) => {
       return
     }
     startTransition(() => {
-      // router.push(callbackUrl ? callbackUrl : '/dashboard')
-      router.push('/dashboard')
+      router.push(callbackUrl ? callbackUrl : '/dashboard')
     })
     toast.success('Welcome To WpAccPac')
   }
