@@ -13,4 +13,5 @@ export const SettingsSchema = z.object({
   }),
 
   colorScheme: z.string().optional(),
+  currency: z.string().optional(),
 })

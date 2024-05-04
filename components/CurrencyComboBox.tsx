@@ -21,81 +21,10 @@ import {
 import { Currencies, Currency } from '@/lib/currencies'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { UserSettings } from '@prisma/client'
+import SkeletonWrapper from './SkeletonWrapper'
+import { toast } from 'sonner'
+import { UpdateUserCurrency } from '@/app/wizard/_actions/userSettings'
 
 export function CurrencyComboBox() {
-  const [open, setOpen] = React.useState(false)
-  const isDesktop = useMediaQuery('(min-width: 768px)')
-  const [selectedOption, setSelectedOption] = React.useState<Currency | null>(
-    null
-  )
-
-  const userSettings = useQuery<UserSettings>({
-    queryKey: ['userSettings'],
-    queryFn: () => fetch('/api/user-settings').then((res) => res.json()),
-  })
-  console.log('@@@ USER SETTINGS ', userSettings)
-
-  if (isDesktop) {
-    return (
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button variant="outline" className="w-full justify-start">
-            {selectedOption ? <>{selectedOption.label}</> : <>Set Currency</>}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0" align="start">
-          <OptionList setOpen={setOpen} setSelectedOption={setSelectedOption} />
-        </PopoverContent>
-      </Popover>
-    )
-  }
-
-  return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
-        <Button variant="outline" className="w-full justify-start">
-          {selectedOption ? <>{selectedOption.label}</> : <>Set Currency</>}
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <div className="mt-4 border-t">
-          <OptionList setOpen={setOpen} setSelectedOption={setSelectedOption} />
-        </div>
-      </DrawerContent>
-    </Drawer>
-  )
-}
-
-function OptionList({
-  setOpen,
-  setSelectedOption,
-}: {
-  setOpen: (open: boolean) => void
-  setSelectedOption: (status: Currency | null) => void
-}) {
-  return (
-    <Command>
-      <CommandInput placeholder="Filter currency..." />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup>
-          {Currencies.map((currency) => (
-            <CommandItem
-              key={currency.value}
-              value={currency.value}
-              onSelect={(value) => {
-                setSelectedOption(
-                  Currencies.find((priority) => priority.value === value) ||
-                    null
-                )
-                setOpen(false)
-              }}
-            >
-              {currency.label}
-            </CommandItem>
-          ))}
-        </CommandGroup>
-      </CommandList>
-    </Command>
-  )
+  return <div>Combo box</div>
 }

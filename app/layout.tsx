@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 
 import { ToastContainer } from 'react-toastify'
-
+import { Toaster } from 'sonner'
 import { auth } from '@/lib/auth'
 import db from '@/lib/db'
 import RootProviders from '@/RootProviders/RootPtoviders'
@@ -59,6 +59,7 @@ export default async function RootLayout({
               pauseOnHover
               theme="light"
             />
+            <Toaster richColors position="bottom-right" />
           </RootProviders>
         </AuthProvider>
       </body>

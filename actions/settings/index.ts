@@ -15,7 +15,8 @@ export async function updateUser(values: z.infer<typeof SettingsSchema>) {
     return { error: 'Invalid fields!' }
   }
 
-  const { email, firstName, lastName, colorScheme } = validatedFields.data
+  const { email, firstName, lastName, colorScheme, currency } =
+    validatedFields.data
 
   try {
     await db.user.update({
@@ -27,6 +28,7 @@ export async function updateUser(values: z.infer<typeof SettingsSchema>) {
         firstName,
         lastName,
         colorScheme,
+        currency,
       },
     })
     revalidatePath('/dashboard')

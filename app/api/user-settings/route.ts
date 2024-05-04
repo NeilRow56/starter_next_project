@@ -11,9 +11,9 @@ export async function GET(request: Request) {
     redirect('/auth/sign-in')
   }
 
-  let userSettings = await db.userSettings.findUnique({
+  let userSettings = await db.userSettings.findFirst({
     where: {
-      id: user.id,
+      userId: user.id,
     },
   })
 

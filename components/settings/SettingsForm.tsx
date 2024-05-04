@@ -1,5 +1,5 @@
 'use client'
-
+import { Currencies, Currency } from '@/lib/currencies'
 import { SettingsSchema } from '@/schemas/settings'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTransition } from 'react'
@@ -28,7 +28,6 @@ import { Loader2, MailIcon, Save } from 'lucide-react'
 import { User } from '@prisma/client'
 import { updateUser } from '@/actions/settings'
 import { toast } from 'react-toastify'
-import { useSession } from 'next-auth/react'
 
 export const SettingsForm = ({ user }: { user: User }) => {
   const [isPending, startTransition] = useTransition()
@@ -41,6 +40,7 @@ export const SettingsForm = ({ user }: { user: User }) => {
       lastName: user.lastName || '',
       email: user.email || '',
       colorScheme: user.colorScheme || '',
+      currency: user.currency || '',
     },
   })
 
@@ -153,7 +153,7 @@ export const SettingsForm = ({ user }: { user: User }) => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a Colour" />
+                        <SelectValue placeholder="Select a verified email to display" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -164,6 +164,33 @@ export const SettingsForm = ({ user }: { user: User }) => {
                       <SelectItem value="theme-orange">Orange</SelectItem>
                       <SelectItem value="theme-red">Red</SelectItem>
                       <SelectItem value="theme-rose">Rose</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="currency"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select A Currency</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a Currency" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="GBP">£ Pound Sterling</SelectItem>
+                      <SelectItem value="USD">$ US Dollar</SelectItem>
+                      <SelectItem value="EUR">€ Euro</SelectItem>
                     </SelectContent>
                   </Select>
 
