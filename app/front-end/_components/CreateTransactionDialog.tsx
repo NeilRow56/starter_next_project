@@ -41,6 +41,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { toast } from 'sonner'
 import { TransactionType } from '@/lib/transactionTypes'
+import {
+  CreateTransactionSchema,
+  CreateTransactionSchemaType,
+} from '@/schemas/transactions'
+import CategoryPicker from './CategoryPicker'
 
 interface TransactionProps {
   trigger: ReactNode
@@ -48,7 +53,13 @@ interface TransactionProps {
 }
 
 function CreateTransactionDialog({ trigger, type }: TransactionProps) {
-  const form = useForm()
+  const form = useForm<CreateTransactionSchemaType>({
+    resolver: zodResolver(CreateTransactionSchema),
+    defaultValues: {
+      type,
+      date: new Date(),
+    },
+  })
 
   const onSubmit = {}
 
@@ -58,7 +69,15 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            Create a new <span></span>
+            Create a new{' '}
+            <span
+              className={cn(
+                'm-1',
+                type === 'income' ? 'text-emerald-500' : 'text-red-500'
+              )}
+            >
+              {type}
+            </span>
             transaction
           </DialogTitle>
         </DialogHeader>
@@ -102,7 +121,9 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Category</FormLabel>
-                    <FormControl></FormControl>
+                    <FormControl>
+                      <CategoryPicker type={type} onChange={() => {}} />
+                    </FormControl>
                     <FormDescription>
                       Select a category for this transaction
                     </FormDescription>
