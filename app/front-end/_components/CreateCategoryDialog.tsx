@@ -180,7 +180,7 @@ function CreateCategoryDialog({
               Cancel
             </Button>
           </DialogClose>
-          <Button onClick={() => {}}></Button>
+          <Button onClick={() => {}}>Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
