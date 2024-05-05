@@ -44,6 +44,7 @@ import {
   CreateCategorySchema,
   CreateCategorySchemaType,
 } from '@/schemas/categories'
+import { CreateCategory } from '@/actions/categories'
 
 interface CreateCategoryDialogProps {
   type: TransactionType
@@ -65,6 +66,45 @@ function CreateCategoryDialog({
   })
 
   const theme = useTheme()
+  const queryClient = useQueryClient()
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: CreateCategory,
+    onSuccess: async (data: Category) => {
+      form.reset({
+        name: '',
+        icon: '',
+        type,
+      })
+
+      toast.success(`Category ${data.name} created successfully 🎉`, {
+        id: 'create-category',
+      })
+
+      successCallback(data)
+
+      await queryClient.invalidateQueries({
+        queryKey: ['categories'],
+      })
+
+      setOpen((prev) => !prev)
+    },
+    onError: () => {
+      toast.error('Something went wrong', {
+        id: 'create-category',
+      })
+    },
+  })
+
+  const onSubmit = useCallback(
+    (values: CreateCategorySchemaType) => {
+      toast.loading('Creating category...', {
+        id: 'create-category',
+      })
+      mutate(values)
+    },
+    [mutate]
+  )
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -100,7 +140,7 @@ function CreateCategoryDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={() => {}} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="name"
@@ -180,7 +220,10 @@ function CreateCategoryDialog({
               Cancel
             </Button>
           </DialogClose>
-          <Button onClick={() => {}}>Save</Button>
+          <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
+            {!isPending && 'Create'}
+            {isPending && <Loader2 className="animate-spin" />}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
