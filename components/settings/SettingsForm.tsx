@@ -28,9 +28,11 @@ import { Loader2, MailIcon, Save } from 'lucide-react'
 import { User } from '@prisma/client'
 import { updateUser } from '@/actions/settings'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 export const SettingsForm = ({ user }: { user: User }) => {
   const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
@@ -55,6 +57,7 @@ export const SettingsForm = ({ user }: { user: User }) => {
 
           if (data?.success) {
             form.reset()
+            form.getValues()
             toast.success(data.success)
           }
         })
@@ -153,7 +156,7 @@ export const SettingsForm = ({ user }: { user: User }) => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a verified email to display" />
+                        <SelectValue placeholder="Select a colour scheme" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
