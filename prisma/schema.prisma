@@ -66,7 +66,7 @@ model Transaction {
     amount        Float
     description   String  
     date          DateTime        
-    type          String      @unique @default("income")
+    type          String      @default("income")
     category      String
     categoryIcon  String
     user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -78,8 +78,8 @@ model Transaction {
 model Category {
     id         String @id @default(auto()) @map("_id") @db.ObjectId
     name      String   @unique
-    icon      String   @unique
-    type      String   @unique @default("income")
+    icon      String   
+    type      String   @default("income")
     createdAt DateTime @default(now())
     userId String @db.ObjectId
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
