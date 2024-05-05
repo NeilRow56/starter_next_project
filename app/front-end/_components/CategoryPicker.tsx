@@ -21,6 +21,7 @@ import { Category } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import React, { useCallback, useEffect, useState } from 'react'
+import CreateCategoryDialog from './CreateCategoryDialog'
 
 interface CategoryPickerProps {
   type: TransactionType
@@ -79,7 +80,7 @@ function CategoryPicker({ type, onChange }: CategoryPickerProps) {
           }}
         >
           <CommandInput placeholder="Search category..." />
-          CREATE CATEGORY DIALOG
+          <CreateCategoryDialog type={type} successCallback={successCallback} />
           <CommandEmpty>
             <p>Category not found</p>
             <p className="text-xs text-muted-foreground">
