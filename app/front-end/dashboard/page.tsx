@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth'
 import db from '@/lib/db'
 import { redirect } from 'next/navigation'
 import CreateTransactionDialog from '../_components/CreateTransactionDialog'
+import Overview from '../_components/Overview'
 
 export default async function DashboardPage() {
   const session = await auth()
@@ -21,6 +22,12 @@ export default async function DashboardPage() {
   if (!userDetails) {
     redirect('/front-end/settings')
   }
+
+  const userSettings = await db.userSettings.findFirst({
+    where: {
+      userId: user.id,
+    },
+  })
 
   return (
     <div className="h-full bg-background">
@@ -55,7 +62,7 @@ export default async function DashboardPage() {
           </div>
         </div>
       </div>
-      Overview and History
+      <Overview userSettings={userSettings} />
     </div>
   )
 }
