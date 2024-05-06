@@ -61,7 +61,12 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
     },
   })
 
-  const onSubmit = {}
+  const handleCategoryChange = useCallback(
+    (value: string) => {
+      form.setValue('category', value)
+    },
+    [form]
+  )
 
   return (
     <Dialog>
@@ -122,7 +127,10 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
                   <FormItem className="flex flex-col">
                     <FormLabel>Category</FormLabel>
                     <FormControl>
-                      <CategoryPicker type={type} onChange={() => {}} />
+                      <CategoryPicker
+                        type={type}
+                        onChange={handleCategoryChange}
+                      />
                     </FormControl>
                     <FormDescription>
                       Select a category for this transaction
