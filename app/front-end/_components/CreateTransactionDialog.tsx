@@ -34,7 +34,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
-
+import { format } from 'date-fns'
 import { CalendarIcon, Loader2 } from 'lucide-react'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -46,6 +46,9 @@ import {
   CreateTransactionSchemaType,
 } from '@/schemas/transactions'
 import CategoryPicker from './CategoryPicker'
+import { Calendar } from '@/components/ui/calendar'
+import { CreateTransaction } from '@/actions/transactions'
+import { DateToUTCDate } from '@/lib/helpers'
 
 interface TransactionProps {
   trigger: ReactNode
@@ -61,6 +64,8 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
     },
   })
 
+  const [open, setOpen] = useState(false)
+
   const handleCategoryChange = useCallback(
     (value: string) => {
       form.setValue('category', value)
@@ -68,8 +73,46 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
     [form]
   )
 
+  const queryClient = useQueryClient()
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: CreateTransaction,
+    onSuccess: () => {
+      toast.success('Transaction created successfully 🎉', {
+        id: 'create-transaction',
+      })
+
+      form.reset({
+        type,
+        description: '',
+        amount: 0,
+        date: new Date(),
+        category: undefined,
+      })
+
+      // After creating a transaction, we need to invalidate the overview query which will refetch data in the homepage
+      queryClient.invalidateQueries({
+        queryKey: ['overview'],
+      })
+
+      setOpen((prev) => !prev)
+    },
+  })
+
+  const onSubmit = useCallback(
+    (values: CreateTransactionSchemaType) => {
+      toast.loading('Creating transaction...', { id: 'create-transaction' })
+
+      mutate({
+        ...values,
+        date: DateToUTCDate(values.date),
+      })
+    },
+    [mutate]
+  )
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -87,7 +130,7 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form className="space-y-4" onSubmit={() => {}}>
+          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="description"
@@ -155,11 +198,23 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
                               !field.value && 'text-muted-foreground'
                             )}
                           >
+                            {field.value ? (
+                              format(field.value, 'PPP')
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0"></PopoverContent>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          initialFocus
+                        />
+                      </PopoverContent>
                     </Popover>
                     <FormDescription>Select a date for this</FormDescription>
                     <FormMessage />
@@ -181,7 +236,10 @@ function CreateTransactionDialog({ trigger, type }: TransactionProps) {
               Cancel
             </Button>
           </DialogClose>
-          <Button onClick={() => {}}></Button>
+          <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
+            {!isPending && 'Create'}
+            {isPending && <Loader2 className="animate-spin" />}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -90,7 +90,7 @@ function CreateCategoryDialog({
       setOpen((prev) => !prev)
     },
     onError: () => {
-      toast.error('Something went wrong', {
+      toast.error('Something went wrong - Duplicate entry?', {
         id: 'create-category',
       })
     },
