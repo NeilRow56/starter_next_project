@@ -2,16 +2,13 @@
 
 import { DateRangePicker } from '@/components/ui/date-range-picker'
 import { MAX_DATE_RANGE_DAYS } from '@/lib/constants'
-import { UserSettings } from '@prisma/client'
+import { User } from '@prisma/client'
 import { differenceInDays, startOfMonth } from 'date-fns'
 import { useState } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
+import StatsCards from './StatsCards'
 
-export default function Overview({
-  userSettings,
-}: {
-  userSettings: UserSettings | null
-}) {
+export default function Overview({ user }: { user: User }) {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: startOfMonth(new Date()),
     to: new Date(),
@@ -30,6 +27,7 @@ export default function Overview({
               // We update the date range only if both dates are set
 
               if (!from || !to) return
+
               if (differenceInDays(to, from) > MAX_DATE_RANGE_DAYS) {
                 toast.error(
                   `The selected date range is too big. Max allowed range is ${MAX_DATE_RANGE_DAYS} days!`
@@ -42,19 +40,15 @@ export default function Overview({
           />
         </div>
       </div>
-      {/* <div className="container flex w-full flex-col gap-2">
-        <StatsCards
-          userSettings={userSettings}
-          from={dateRange.from}
-          to={dateRange.to}
-        />
+      <div className="container flex w-full flex-col gap-2">
+        <StatsCards user={user} from={dateRange.from} to={dateRange.to} />
 
-        <CategoriesStats
+        {/* <CategoriesStats
           userSettings={userSettings}
           from={dateRange.from}
           to={dateRange.to}
-        />
-      </div> */}
+        /> */}
+      </div>
     </>
   )
 }

@@ -23,12 +23,6 @@ export default async function DashboardPage() {
     redirect('/front-end/settings')
   }
 
-  const userSettings = await db.userSettings.findFirst({
-    where: {
-      userId: user.id,
-    },
-  })
-
   return (
     <div className="h-full bg-background">
       <div className="border-b bg-card">
@@ -62,7 +56,7 @@ export default async function DashboardPage() {
           </div>
         </div>
       </div>
-      <Overview userSettings={userSettings} />
+      <Overview user={userDetails} />
     </div>
   )
 }
