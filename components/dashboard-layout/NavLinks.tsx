@@ -28,8 +28,8 @@ const links = [
   },
   { name: 'Services', href: '/front-end/services', icon: Compass },
   {
-    name: 'Reels',
-    href: '/front-end/reels',
+    name: 'Manage',
+    href: '/front-end/manage',
     icon: Clapperboard,
     hideOnMobile: true,
   },
