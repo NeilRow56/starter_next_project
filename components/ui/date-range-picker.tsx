@@ -41,7 +41,7 @@ export interface DateRangePickerProps {
   showCompare?: boolean
 }
 
-const formatDate = (date: Date, locale: string = 'en-us'): string => {
+const formatDate = (date: Date, locale: string = 'en-gb'): string => {
   return date.toLocaleDateString(locale, {
     month: 'short',
     day: 'numeric',
@@ -96,7 +96,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
   initialCompareTo,
   onUpdate,
   align = 'end',
-  locale = 'en-US',
+  locale = 'en-GB',
   showCompare = true,
 }): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
@@ -112,7 +112,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
       ? {
           from: new Date(new Date(initialCompareFrom).setHours(0, 0, 0, 0)),
           to: initialCompareTo
-            ? new Date(new Date(initialCompareTo).setHours(0, 0, 0, 0))
+            ? new Date(new Date(initialCompareTo).setHours(23, 59, 59, 999))
             : new Date(new Date(initialCompareFrom).setHours(0, 0, 0, 0)),
         }
       : undefined
@@ -239,7 +239,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
       const normalizedRangeTo = new Date(range.to ?? 0)
       normalizedRangeTo.setHours(0, 0, 0, 0)
       const normalizedPresetTo = new Date(
-        presetRange.to?.setHours(0, 0, 0, 0) ?? 0
+        presetRange.to?.setHours(23, 59, 59, 999) ?? 0
       )
 
       if (
