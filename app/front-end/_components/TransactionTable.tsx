@@ -44,7 +44,9 @@ const columns: ColumnDef<TransactionHistoryRow>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Category" />
     ),
-
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
     cell: ({ row }) => (
       <div className="flex gap-2 capitalize">
         {row.original.categoryIcon}
@@ -112,6 +114,7 @@ const columns: ColumnDef<TransactionHistoryRow>[] = [
 
 export default function TransactionTable({ from, to }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
   const history = useQuery<GetTransactionHistoryResponseType>({
     queryKey: ['transactions', 'history', from, to],
@@ -129,10 +132,13 @@ export default function TransactionTable({ from, to }: Props) {
     getCoreRowModel: getCoreRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
 
     onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   })
 
   const categoriesOptions = useMemo(() => {
@@ -149,9 +155,26 @@ export default function TransactionTable({ from, to }: Props) {
 
   return (
     <div className="w-full">
-      <pre>{JSON.stringify(categoriesOptions, null, 2)}</pre>
       <div className="flex flex-wrap items-end justify-between gap-2 py-4">
-        TODO: FILTERS
+        <div className="flex gap-2">
+          {table.getColumn('category') && (
+            <DataTableFacetedFilter
+              title="Category"
+              column={table.getColumn('category')}
+              options={categoriesOptions}
+            />
+          )}
+          {table.getColumn('type') && (
+            <DataTableFacetedFilter
+              title="Type"
+              column={table.getColumn('type')}
+              options={[
+                { label: 'Income', value: 'income' },
+                { label: 'Expense', value: 'expense' },
+              ]}
+            />
+          )}
+        </div>
       </div>
       <SkeletonWrapper isLoading={history.isFetching}>
         <div className="rounded-md border">
