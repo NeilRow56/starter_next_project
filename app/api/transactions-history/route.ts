@@ -2,6 +2,7 @@ import { auth } from '@/lib/auth'
 import db from '@/lib/db'
 import { GetFormatterForCurrency } from '@/lib/helpers'
 import { OverviewQuerySchema } from '@/schemas/overview'
+import { User } from '@prisma/client'
 
 import { redirect } from 'next/navigation'
 
