@@ -16,24 +16,46 @@ import { cn } from '@/lib/utils'
 import { Category } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import { PlusSquare, TrashIcon, TrendingDown, TrendingUp } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 import CreateCategoryDialog from '../_components/CreateCategoryDialog'
 import Link from 'next/link'
 import DeleteCategoryDialog from '../_components/DeleteCategoryDialog'
 import { useSession } from 'next-auth/react'
 import CurrencyCard from '../_components/CurrencyCard'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
 
 function ManagePage() {
+  const [newName, setNewName] = useState('')
+  const { data: session, status, update } = useSession()
+  console.log('useSession hook session object', session)
   return (
     <>
       {/* HEADER */}
       <div className="border-b bg-card">
         <div className="container flex flex-wrap items-center justify-between gap-6 py-8">
           <div>
-            <p className="text-3xl font-bold">Manage</p>
-            <p className="text-muted-foreground">
-              Manage your account settings and categories
-            </p>
+            <h3 className="text-3xl font-bold">Manage</h3>
+            <div className="text-muted-foreground">
+              Manage your account settings and categories -
+              <div className="pl-2 text-xl font-bold">
+                {session?.user.firstName}
+              </div>
+              <div>
+                <Label className="flex flex-col py-4 text-xl font-bold">
+                  Update Name
+                </Label>
+                <input
+                  type="text"
+                  placeholder="enter new name"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                />
+                <Button onClick={() => update({ name: newName })}>
+                  Update Name
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
