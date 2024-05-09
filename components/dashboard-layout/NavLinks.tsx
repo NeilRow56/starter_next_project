@@ -26,7 +26,7 @@ const links = [
     icon: Search,
     hideOnMobile: true,
   },
-  { name: 'Services', href: '/front-end/services', icon: Compass },
+  { name: 'Transactions', href: '/front-end/transactions', icon: Compass },
   {
     name: 'Manage',
     href: '/front-end/manage',
