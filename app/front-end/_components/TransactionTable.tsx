@@ -23,10 +23,11 @@ import {
 } from '@/components/ui/table'
 import { DateToUTCDate } from '@/lib/helpers'
 import { useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import SkeletonWrapper from '@/components/SkeletonWrapper'
 import { DataTableColumnHeader } from '@/components/datatable/ColumnHeader'
 import { cn } from '@/lib/utils'
+import { DataTableFacetedFilter } from '@/components/datatable/FacetedFilters'
 
 interface Props {
   from: Date
@@ -133,8 +134,22 @@ export default function TransactionTable({ from, to }: Props) {
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
   })
+
+  const categoriesOptions = useMemo(() => {
+    const categoriesMap = new Map()
+    history.data?.forEach((transaction) => {
+      categoriesMap.set(transaction.category, {
+        value: transaction.category,
+        label: `${transaction.categoryIcon} ${transaction.category}`,
+      })
+    })
+    const uniqueCategories = new Set(categoriesMap.values())
+    return Array.from(uniqueCategories)
+  }, [history.data])
+
   return (
     <div className="w-full">
+      <pre>{JSON.stringify(categoriesOptions, null, 2)}</pre>
       <div className="flex flex-wrap items-end justify-between gap-2 py-4">
         TODO: FILTERS
       </div>
